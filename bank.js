@@ -3,6 +3,11 @@ const btnDeposit = document.getElementById("btn-deposit");
 btnDeposit.addEventListener("click", function () {
   //get the deposit input
   let depositInputField = document.getElementById("deposit-input");
+  if(isNaN(parseFloat(depositInputField.value))){
+    alert("Please provide an amount")
+    depositInputField.value = ''
+    return;
+}
 
   const newDepositAmount = parseFloat(depositInputField.value);
 
@@ -27,22 +32,31 @@ btnWithdraw.addEventListener("click", function () {
     //get the withdraw input
     let withdrawInput = document.getElementById("withdraw-input")
 
+    if(isNaN(parseFloat(withdrawInput.value))){
+        alert("Please provide an amount")
+        withdrawInput.value = ''
+        return;
+    }
+
+    // Balance Amount
+  let previousBalance = document.getElementById("balance-amount");
+  
+  if(parseFloat(withdrawInput.value)>parseFloat(previousBalance.innerText)){
+    alert("Chaall futt fakirrr")
+  }
+  else{
     // get the previous withdraw
     const previousWithdraw = document.getElementById("withdraw-amount")
     const newWithdraw = parseFloat(previousWithdraw.innerText) + parseFloat(withdrawInput.value)
 
     previousWithdraw.innerText = newWithdraw
-
-    // Balance Amount
-  let previousBalance = document.getElementById("balance-amount");
-  if(parseFloat(withdrawInput.value)>parseFloat(previousBalance.innerText)){
-    alert("Chaall futt fakirrr")
+    const newBalance =
+    parseFloat(previousBalance.innerText) - parseFloat(withdrawInput.value);
+  previousBalance.innerText = newBalance;
   }
 
 
-  const newBalance =
-    parseFloat(previousBalance.innerText) - newWithdraw;
-  previousBalance.innerText = newBalance;
+  
 
   withdrawInput.value = ''
  
